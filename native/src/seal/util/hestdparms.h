@@ -3,11 +3,29 @@
 
 #pragma once
 
+
+
 /**
 Largest allowed bit counts for coeff_modulus based on the security estimates from
 HomomorphicEncryption.org security standard. Microsoft SEAL samples the secret key
 from a ternary {-1, 0, 1} distribution.
 */
+
+// Ternary secret; 80 bits classical security
+constexpr int SEAL_HE_STD_PARMS_80_TC(std::size_t poly_modulus_degree) noexcept
+{
+    switch (poly_modulus_degree)
+    {
+        case std::size_t(1024):      return 43;
+        case std::size_t(2048):      return 84;
+        case std::size_t(4096):      return 168;
+        case std::size_t(8192):      return 342;
+        case std::size_t(16384):     return 688;
+        case std::size_t(32768):     return 1391;
+    }
+    return 0;
+}
+
 // Ternary secret; 128 bits classical security
 constexpr int SEAL_HE_STD_PARMS_128_TC(std::size_t poly_modulus_degree) noexcept
 {

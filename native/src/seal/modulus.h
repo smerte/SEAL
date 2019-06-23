@@ -27,6 +27,11 @@ namespace seal
         none = 0,
 
         /**
+        80-bit security level according to HomomorphicEncryption.org standard.
+        */
+        tc80 = 80,
+
+        /**
         128-bit security level according to HomomorphicEncryption.org standard.
         */
         tc128 = 128,
@@ -70,10 +75,13 @@ namespace seal
         */
         static constexpr int MaxBitCount(
             std::size_t poly_modulus_degree,
-            sec_level_type sec_level = sec_level_type::tc128) noexcept
+            sec_level_type sec_level = sec_level_type::tc80) noexcept
         {
             switch (sec_level)
             {
+            case sec_level_type::tc80:
+                return SEAL_HE_STD_PARMS_80_TC(poly_modulus_degree);
+
             case sec_level_type::tc128:
                 return SEAL_HE_STD_PARMS_128_TC(poly_modulus_degree);
 
