@@ -141,10 +141,10 @@ tests should pass successfully.
 
 #### Library
 
-To install Microsoft SEAL locally, e.g., to `~/mylibs/`, do the following:
+To install Microsoft SEAL locally, e.g., to `~/git/SEAL/native/Release/`, do the following:
 ````
 cd native/src
-cmake -DCMAKE_INSTALL_PREFIX=~/mylibs .
+cmake -DCMAKE_PREFIX_PATH=~/git/SEAL/native/Release -DCMAKE_BUILD_TYPE=Release ..
 make
 make install
 cd ../..
