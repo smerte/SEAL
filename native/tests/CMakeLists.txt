@@ -22,7 +22,7 @@ option(INSTALL_GTEST OFF)
 mark_as_advanced(BUILD_GMOCK INSTALL_GTEST)
 
 # Add GTest
-set(GTEST_DIR "thirdparty/googletest")
+set(GTEST_DIR "${CMAKE_SOURCE_DIR}/thirdparty/googletest")
 if(NOT EXISTS ${GTEST_DIR}/CMakeLists.txt)
     message(FATAL_ERROR "Could not find `${GTEST_DIR}/CMakeLists.txt`. Run `git submodule update --init` and retry.")
 endif()

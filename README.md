@@ -149,7 +149,7 @@ tests should pass successfully.
 To install Microsoft SEAL locally, e.g., to `~/git/SEAL/native/Release/`, do the following:
 ````
 cd native/src
-cmake -DCMAKE_PREFIX_PATH=~/git/SEAL/native/Release -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_INSTALL_PREFIX=~/git/SEAL/native/Release -DCMAKE_BUILD_TYPE=Release ..
 make
 make install
 cd ../..
