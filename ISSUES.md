@@ -21,9 +21,9 @@ To collect system information for an improved bug report, please run
 ```
 make -C tools system_info
 ```
-This will result in a file `system\_info.tar.gz` to be generated, which you can 
+This will result in a file `system_info.tar.gz` to be generated, which you can 
 optionally attach with your bug report.
 
 ## Critical security issues
 
-For reporting critical security issues, see [Security.md](Security.md).
+For reporting critical security issues, see [SECURITY.md](SECURITY.md).

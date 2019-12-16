@@ -129,15 +129,7 @@ namespace Microsoft.Research.SEAL
             if (null == destination)
                 throw new ArgumentNullException(nameof(destination));
 
-            try
-            {
-                NativeMethods.Evaluator_Negate(NativePtr, encrypted.NativePtr, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Negate(NativePtr, encrypted.NativePtr, destination.NativePtr);
         }
 
         /// <summary>
@@ -186,15 +178,7 @@ namespace Microsoft.Research.SEAL
             if (null == destination)
                 throw new ArgumentNullException(nameof(destination));
 
-            try
-            {
-                NativeMethods.Evaluator_Add(NativePtr, encrypted1.NativePtr, encrypted2.NativePtr, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Add(NativePtr, encrypted1.NativePtr, encrypted2.NativePtr, destination.NativePtr);
         }
 
         /// <summary>
@@ -218,15 +202,7 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr[] encarray = encrypteds.Select(c => c.NativePtr).ToArray();
-            try
-            {
-                NativeMethods.Evaluator_AddMany(NativePtr, (ulong)encarray.Length, encarray, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_AddMany(NativePtr, (ulong)encarray.Length, encarray, destination.NativePtr);
         }
 
         /// <summary>
@@ -274,15 +250,7 @@ namespace Microsoft.Research.SEAL
             if (null == destination)
                 throw new ArgumentNullException(nameof(destination));
 
-            try
-            {
-                NativeMethods.Evaluator_Sub(NativePtr, encrypted1.NativePtr, encrypted2.NativePtr, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Sub(NativePtr, encrypted1.NativePtr, encrypted2.NativePtr, destination.NativePtr);
         }
 
         /// <summary>
@@ -342,15 +310,7 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_Multiply(NativePtr, encrypted1.NativePtr, encrypted2.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Multiply(NativePtr, encrypted1.NativePtr, encrypted2.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -402,15 +362,7 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_Square(NativePtr, encrypted.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Square(NativePtr, encrypted.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -477,15 +429,8 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_Relinearize(NativePtr, encrypted.NativePtr, relinKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Relinearize(
+                NativePtr, encrypted.NativePtr, relinKeys.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -517,15 +462,8 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_ModSwitchToNext(NativePtr, encrypted.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_ModSwitchToNext(
+                NativePtr, encrypted.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -654,15 +592,8 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_ModSwitchTo(NativePtr, encrypted.NativePtr, parmsId.Block, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_ModSwitchTo(
+                NativePtr, encrypted.NativePtr, parmsId.Block, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -742,15 +673,8 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_RescaleToNext(NativePtr, encrypted.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_RescaleToNext(
+                NativePtr, encrypted.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -841,15 +765,8 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_RescaleTo(NativePtr, encrypted.NativePtr, parmsId.Block, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_RescaleTo(
+                NativePtr, encrypted.NativePtr, parmsId.Block, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -894,15 +811,9 @@ namespace Microsoft.Research.SEAL
 
             IntPtr[] encarray = encrypteds.Select(c => c.NativePtr).ToArray();
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_MultiplyMany(NativePtr, (ulong)encarray.Length, encarray, relinKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_MultiplyMany(
+                NativePtr, (ulong)encarray.Length, encarray, relinKeys.NativePtr,
+                destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -976,15 +887,9 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_Exponentiate(NativePtr, encrypted.NativePtr, exponent, relinKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_Exponentiate(
+                NativePtr, encrypted.NativePtr, exponent, relinKeys.NativePtr,
+                destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -1031,15 +936,8 @@ namespace Microsoft.Research.SEAL
             if (null == destination)
                 throw new ArgumentNullException(nameof(destination));
 
-            try
-            {
-                NativeMethods.Evaluator_AddPlain(NativePtr, encrypted.NativePtr, plain.NativePtr, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_AddPlain(
+                NativePtr, encrypted.NativePtr, plain.NativePtr, destination.NativePtr);
         }
 
         /// <summary>
@@ -1084,15 +982,8 @@ namespace Microsoft.Research.SEAL
             if (null == destination)
                 throw new ArgumentNullException(nameof(destination));
 
-            try
-            {
-                NativeMethods.Evaluator_SubPlain(NativePtr, encrypted.NativePtr, plain.NativePtr, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+                NativeMethods.Evaluator_SubPlain(
+                    NativePtr, encrypted.NativePtr, plain.NativePtr, destination.NativePtr);
         }
 
         /// <summary>
@@ -1152,15 +1043,8 @@ namespace Microsoft.Research.SEAL
                 throw new ArgumentNullException(nameof(destination));
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_MultiplyPlain(NativePtr, encrypted.NativePtr, plain.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_MultiplyPlain(
+                NativePtr, encrypted.NativePtr, plain.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -1266,15 +1150,8 @@ namespace Microsoft.Research.SEAL
             if (null == destinationNTT)
                 throw new ArgumentNullException(nameof(destinationNTT));
 
-            try
-            {
-                NativeMethods.Evaluator_TransformToNTT(NativePtr, encrypted.NativePtr, destinationNTT.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_TransformToNTT(
+                NativePtr, encrypted.NativePtr, destinationNTT.NativePtr);
         }
 
         /// <summary>
@@ -1315,15 +1192,8 @@ namespace Microsoft.Research.SEAL
             if (null == destination)
                 throw new ArgumentNullException(nameof(destination));
 
-            try
-            {
-                NativeMethods.Evaluator_TransformFromNTT(NativePtr, encryptedNTT.NativePtr, destination.NativePtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_TransformFromNTT(
+                NativePtr, encryptedNTT.NativePtr, destination.NativePtr);
         }
 
         /// <summary>
@@ -1419,15 +1289,9 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_ApplyGalois(NativePtr, encrypted.NativePtr, galoisElt, galoisKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_ApplyGalois(
+                NativePtr, encrypted.NativePtr, galoisElt,
+                galoisKeys.NativePtr, destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -1508,15 +1372,9 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_RotateRows(NativePtr, encrypted.NativePtr, steps, galoisKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_RotateRows(
+                NativePtr, encrypted.NativePtr, steps, galoisKeys.NativePtr,
+                destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -1590,15 +1448,9 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_RotateColumns(NativePtr, encrypted.NativePtr, galoisKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_RotateColumns(
+                NativePtr, encrypted.NativePtr, galoisKeys.NativePtr,
+                destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -1679,15 +1531,9 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_RotateVector(NativePtr, encrypted.NativePtr, steps, galoisKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_RotateVector(
+                NativePtr, encrypted.NativePtr, steps, galoisKeys.NativePtr,
+                destination.NativePtr, poolPtr);
         }
 
         /// <summary>
@@ -1757,15 +1603,9 @@ namespace Microsoft.Research.SEAL
                 throw new InvalidOperationException("Keyswitching is not supported by the context");
 
             IntPtr poolPtr = pool?.NativePtr ?? IntPtr.Zero;
-            try
-            {
-                NativeMethods.Evaluator_ComplexConjugate(NativePtr, encrypted.NativePtr, galoisKeys.NativePtr, destination.NativePtr, poolPtr);
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Result ciphertext is transparent", ex);
-            }
+            NativeMethods.Evaluator_ComplexConjugate(
+                NativePtr, encrypted.NativePtr, galoisKeys.NativePtr,
+                destination.NativePtr, poolPtr);
         }
 
         /// <summary>

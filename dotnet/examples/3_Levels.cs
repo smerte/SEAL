@@ -17,7 +17,7 @@ namespace SEALNetExamples
             related objects that represent them in Microsoft SEAL.
 
             In Microsoft SEAL a set of encryption parameters (excluding the random number
-            generator) is identified uniquely by a SHA-3 hash of the parameters. This
+            generator) is identified uniquely by a 256-bit hash of the parameters. This
             hash is called the `ParmsId' and can be easily accessed and printed at any
             time. The hash will change as soon as any of the parameters is changed.
 
@@ -55,7 +55,7 @@ namespace SEALNetExamples
 
                 CoeffModulus.MaxBitCount(polyModulusDegree)
 
-            returns 218 (less than 50+30+30+50+50=210).
+            returns 218 (greater than 50+30+30+50+50=210).
 
             Due to the modulus switching chain, the order of the 5 primes is significant.
             The last prime has a special meaning and we call it the `special prime'. Thus,
@@ -89,7 +89,7 @@ namespace SEALNetExamples
             In this example the PlainModulus does not play much of a role; we choose
             some reasonable value.
             */
-            parms.PlainModulus = new SmallModulus(1 << 20);
+            parms.PlainModulus = PlainModulus.Batching(polyModulusDegree, 20);
 
             SEALContext context = new SEALContext(parms);
             Utilities.PrintParameters(context);
@@ -241,22 +241,25 @@ namespace SEALNetExamples
             parameters in the chain before sending it back to the secret key holder for
             decryption.
 
-            Also the lost noise budget is actually not as issue at all, if we do things
+            Also the lost noise budget is actually not an issue at all, if we do things
             right, as we will see below.
 
             First we recreate the original ciphertext and perform some computations.
             */
             Console.WriteLine("Computation is more efficient with modulus switching.");
             Utilities.PrintLine();
-            Console.WriteLine("Compute the fourth power.");
+            Console.WriteLine("Compute the eight power.");
             encryptor.Encrypt(plain, encrypted);
-            Console.WriteLine("    + Noise budget before squaring:         {0} bits",
+            Console.WriteLine("    + Noise budget fresh:                  {0} bits",
                 decryptor.InvariantNoiseBudget(encrypted));
             evaluator.SquareInplace(encrypted);
             evaluator.RelinearizeInplace(encrypted, relinKeys);
-            Console.WriteLine("    + Noise budget after squaring:          {0} bits",
+            Console.WriteLine("    + Noise budget of the 2nd power:        {0} bits",
                 decryptor.InvariantNoiseBudget(encrypted));
-
+            evaluator.SquareInplace(encrypted);
+            evaluator.RelinearizeInplace(encrypted, relinKeys);
+            Console.WriteLine("    + Noise budget of the 4th power:        {0} bits",
+                decryptor.InvariantNoiseBudget(encrypted));
             /*
             Surprisingly, in this case modulus switching has no effect at all on the
             noise budget.
@@ -272,11 +275,11 @@ namespace SEALNetExamples
             switch to a lower level slightly earlier, actually sacrificing some of the
             noise budget in the process, to gain computational performance from having
             smaller parameters. We see from the print-out that the next modulus switch
-            should be done ideally when the noise budget is down to around 81 bits.
+            should be done ideally when the noise budget is down to around 25 bits.
             */
             evaluator.SquareInplace(encrypted);
             evaluator.RelinearizeInplace(encrypted, relinKeys);
-            Console.WriteLine("    + Noise budget after squaring:          {0} bits",
+            Console.WriteLine("    + Noise budget of the 8th power:        {0} bits",
                 decryptor.InvariantNoiseBudget(encrypted));
             evaluator.ModSwitchToNextInplace(encrypted);
             Console.WriteLine("    + Noise budget after modulus switching: {0} bits",
@@ -289,7 +292,7 @@ namespace SEALNetExamples
             chain.
             */
             decryptor.Decrypt(encrypted, plain);
-            Console.WriteLine("    + Decryption of fourth power (hexadecimal) ...... Correct.");
+            Console.WriteLine("    + Decryption of the 8th power (hexadecimal) ...... Correct.");
             Console.WriteLine($"    {plain}");
             Console.WriteLine();
 

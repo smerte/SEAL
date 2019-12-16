@@ -148,25 +148,17 @@ namespace Microsoft.Research.SEAL
 
             List<SmallModulus> result = null;
 
-            try
+            int[] bitSizesArr = bitSizes.ToArray();
+            int length = bitSizesArr.Length;
+
+            IntPtr[] coeffArray = new IntPtr[length];
+
+            NativeMethods.CoeffModulus_Create(polyModulusDegree, (ulong)length, bitSizesArr, coeffArray);
+
+            result = new List<SmallModulus>(length);
+            foreach (IntPtr sm in coeffArray)
             {
-                int[] bitSizesArr = bitSizes.ToArray();
-                int length = bitSizesArr.Length;
-
-                IntPtr[] coeffArray = new IntPtr[length];
-
-                NativeMethods.CoeffModulus_Create(polyModulusDegree, (ulong)length, bitSizesArr, coeffArray);
-
-                result = new List<SmallModulus>(length);
-                foreach (IntPtr sm in coeffArray)
-                {
-                    result.Add(new SmallModulus(sm));
-                }
-            }
-            catch (COMException ex)
-            {
-                if ((uint)ex.HResult == NativeMethods.Errors.HRInvalidOperation)
-                    throw new InvalidOperationException("Failed to find enough qualifying primes", ex);
+                result.Add(new SmallModulus(sm));
             }
 
             return result;
