@@ -226,13 +226,16 @@ make
 sudo make install
 cd ../..
 ````
-To instead install Microsoft SEAL locally, e.g., to `~/mylibs/`, do the following:
+To instead install Microsoft SEAL locally, e.g., to `native/Debug`, do the following:
 ````
-cd native/src
-cmake . -DCMAKE_INSTALL_PREFIX=~/mylibs
+cd native
+mkdir Debug
+cd src
+mkdir Debug
+cd Debug
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../../Debug
 make
 make install
-cd ../..
 ````
 
 ### Linking with Microsoft SEAL through CMake
